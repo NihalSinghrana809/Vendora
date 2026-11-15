@@ -4,6 +4,7 @@ const Validate=(schema)=>{
 
         if(!result.success){
             return res.status(400).json({
+                success: false,
                 message: "Validation failed",
                 error: result.error.issues
             });
