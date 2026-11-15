@@ -1,5 +1,5 @@
 import mongoose from "mongoose";
-import Product from "../models/Products.js";
+import Product from "./products.model.js";
 
 const getProducts=async(req,res)=>{
     try{
@@ -81,9 +81,9 @@ const createProduct=async(req,res)=>{
 			isFeatured
 		});
 
-        return res.status(200).json({
-            sucess: true,
-            message: "Product created sucessfully",
+        return res.status(201).json({
+            success: true,
+            message: "Product created successfully",
             product
         });
     }
@@ -95,7 +95,7 @@ const createProduct=async(req,res)=>{
 			});
 		}
         return res.status(500).json({
-            sucess: false,
+            success: false,
             message: "Server error"
         });
     }

@@ -1,4 +1,4 @@
-import User from "../models/User.js";
+import User from "../modules/users/user.model.js";
 
 export const authorizeRoles=(...allowedRoles)=>{
     return async(req,res,next)=>{

@@ -658,13 +658,13 @@ Vendora uses REST APIs over HTTPS.
 Production API:
 
 ```text
-https://api.vendora.example.com/api/v1
+https://api.vendora.example.com/api
 ```
 
 Development API:
 
 ```text
-http://localhost:5000/api/v1
+http://localhost:5000/api
 ```
 
 The client communicates with the server using JSON.

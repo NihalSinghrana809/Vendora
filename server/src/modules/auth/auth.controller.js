@@ -1,6 +1,6 @@
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
-import User from "../models/User.js";
+import User from "../users/user.model.js";
 
 export const register=async(req,res)=>{
     const {username,email,password}=req.body;
@@ -36,7 +36,7 @@ export const login=async(req,res)=>{
         const {email,password}=req.body;
         if(!email||!password){
             return res.status(400).json({
-                sucess: false,
+                success: false,
                 message: "Email and Password are required"
             });
         }
@@ -45,7 +45,7 @@ export const login=async(req,res)=>{
 
         if(!user){
             return res.status(401).json({
-                sucess: false,
+                success: false,
                 message: "Invalid email"
             });
         }
@@ -54,7 +54,7 @@ export const login=async(req,res)=>{
 
         if(!isPasswordValid){
             return res.status(401).json({
-                sucess: false,
+                success: false,
                 message: "Invalid password"
             });
         }
@@ -66,8 +66,8 @@ export const login=async(req,res)=>{
         );
 
         return res.status(200).json({
-            sucess: true,
-            message: "Login sucessful",
+            success: true,
+            message: "Login successful",
             token,
             user:{
                 id: user._id,
@@ -78,7 +78,7 @@ export const login=async(req,res)=>{
     }
     catch(error){
         return res.status(500).json({
-            sucess: false,
+            success: false,
             message: "Internal server error"
         });
     }

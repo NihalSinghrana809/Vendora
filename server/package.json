@@ -1,21 +1,24 @@
 {
-  "name": "server",
-  "version": "1.0.0",
-  "description": "E-Commerce Backend for Vendora",
-  "license": "ISC",
-  "author": "Nihal Singh Rana",
-  "type": "module",
-  "main": "index.js",
-  "scripts": {
-    "dev": "nodemon index.js"
-  },
-  "dependencies": {
-    "bcrypt": "^6.0.0",
-    "dotenv": "^18.0.5",
-    "express": "^5.2.1",
-    "jsonwebtoken": "^9.0.3",
-    "mongoose": "^9.10.3",
-    "nodemon": "^3.1.14",
-    "zod": "^4.6.5"
-  }
+	"name":"server",
+	"version":"1.0.0",
+	"description":"E-Commerce Backend for Vendora",
+	"license":"ISC",
+	"author":"Nihal Singh Rana",
+	"type":"module",
+	"main":"src/server.js",
+	"scripts":{
+		"dev":"nodemon src/server.js",
+		"start":"node src/server.js"
+	},
+	"dependencies":{
+		"bcrypt":"^6.0.0",
+		"dotenv":"^18.0.5",
+		"express":"^5.2.1",
+		"jsonwebtoken":"^9.0.3",
+		"mongoose":"^9.10.3",
+		"zod":"^4.6.5"
+	},
+	"devDependencies":{
+		"nodemon":"^3.1.14"
+	}
 }

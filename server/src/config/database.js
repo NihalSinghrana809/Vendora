@@ -1,7 +1,18 @@
 import mongoose from "mongoose";
 import dotenv from "dotenv";
+import dns from "node:dns";
 
 dotenv.config();
+
+// Node's resolver can be misconfigured on Windows (c-ares reports 127.0.0.1), so allow an explicit override.
+const dnsServers=(process.env.DNS_SERVERS||"")
+    .split(",")
+    .map(server=>server.trim())
+    .filter(Boolean);
+
+if(dnsServers.length){
+    dns.setServers(dnsServers);
+}
 
 const connectDB=async()=>{
     try{
