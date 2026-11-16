@@ -1,104 +1,37 @@
 import mongoose from "mongoose";
-import Product from "./products.model.js";
+import productService from "./product.service.js";
 
 const getProducts=async(req,res)=>{
-    try{
-        const products=await Product.find();
-        return res.status(200).json({
-            success: true,
-            count: products.length,
-            products
-        });
-    }
-    catch(error){
-        return res.status(500).json({
-            success: false,
-            message: "Server error"
-        });
-    }
-}
+	const products=await productService.getProducts();
 
-const getProductById=async(req,res)=>{
-    try{
-        const {id}=req.params;
+	return res.status(200).json({
+		success:true,
+		count:products.length,
+		products
+	});
+};
 
-        if(!mongoose.isValidObjectId(id)){
-            return res.status(400).json({
-                success: false,
-                message: "Invalid product ID"
-            });
-        }
+const getProduct=async(req,res)=>{
+	const {idOrSlug}=req.params;
 
-        const product=await Product.findById(id);
+	const product=mongoose.isObjectIdOrHexString(idOrSlug)
+		? await productService.getProductById(idOrSlug)
+		: await productService.getProductBySlug(idOrSlug);
 
-        if(!product){
-            return res.status(404).json({
-                success: false,
-                message: "Product not found"
-            });
-        }
-
-        return res.status(200).json({
-            success: true,
-            product
-        });
-    }
-    catch(error){
-        return res.status(500).json({
-			success:false,
-			message:"Server error"
-		});
-    }
-}
+	return res.status(200).json({
+		success:true,
+		product
+	});
+};
 
 const createProduct=async(req,res)=>{
-    try{
-        const {
-			name,
-			description,
-			brand,
-			category,
-			price,
-			discountedPrice,
-			stock,
-			images,
-			rating,
-			numReviews,
-			isFeatured
-        }=req.body;
+	const product=await productService.createProduct(req.body);
 
-		const product=await Product.create({
-			name,
-			description,
-			brand,
-			category,
-			price,
-			discountedPrice,
-			stock,
-			images,
-			rating,
-			numReviews,
-			isFeatured
-		});
+	return res.status(201).json({
+		success:true,
+		message:"Product created successfully",
+		product
+	});
+};
 
-        return res.status(201).json({
-            success: true,
-            message: "Product created successfully",
-            product
-        });
-    }
-    catch(error){
-        if(error.name==="ValidationError" || error.name==="CastError"){
-			return res.status(400).json({
-				success: false,
-				message: error.message
-			});
-		}
-        return res.status(500).json({
-            success: false,
-            message: "Server error"
-        });
-    }
-}
-
-export {getProducts,getProductById,createProduct};
+export {getProducts,getProduct,createProduct};
